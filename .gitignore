@@ -1,0 +1,39 @@
+# macOS / Editor junk
+.DS_Store
+.vscode/
+.idea/
+
+# Python build/cache
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+
+# Logs
+logs/
+*.log
+
+# Virtual environments
+venv/
+env/
+
+.venv/
+.poetry/              
+.cache/               
+
+
+
+# Secrets and env configs
+.env
+.env.*
+
+
+.ipynb_checkpoints/
+
+
+# Local data (e.g. CSVs)
+data_files/
+
+# (Optional) ML model output
+models/
+llama.cpp/
