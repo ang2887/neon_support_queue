@@ -14,7 +14,7 @@ It supports filtering by company size and includes alerting logic for wait time 
 
 ## ERD (Entity Relationship Diagram)
 
-![ERD](assets/support_queue_erd.png)
+![ERD](diagrams/support_queue_erd.png)
 
 ## Features
 
@@ -25,6 +25,8 @@ It supports filtering by company size and includes alerting logic for wait time 
 - Modular project structure with data ingestion + monitoring scripts
 
 ## Project Structure
+
+```text
 neon_support_queue/
 ├── app/                    # Dash app layout + callbacks
 │   └── app.py
@@ -44,15 +46,15 @@ neon_support_queue/
 │   ├── neon_utils.py
 │   ├── neon_utils.log
 │   └── test_read_env.py
-├── assets/                 # Dashboard and ERD images
-│   ├── customer_wait_times_dashboard.png
-│   └── support_queue_erd.png
+├── assets/                 # Dashboard visuals
+│   └── customer_wait_times_dashboard.png
+├── diagrams/               # ERD and additional diagrams
+│   └── schema_erd.png
 ├── data_files/             # Sample input dataset
 │   └── support_queue.csv
-├── diagrams/               # Additional diagrams (optional)
-│   └── schema_erd.png
 ├── logs/                   # App/runtime logs
 │   └── usage_warnings.log
+```
 
 ## Setup
 
