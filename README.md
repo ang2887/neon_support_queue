@@ -14,7 +14,7 @@ It supports filtering by company size and includes alerting logic for wait time 
 
 ## ERD (Entity Relationship Diagram)
 
-![ERD](diagrams/support_queue_erd.png)
+![ERD](diagrams/schema_erd.png)
 
 ## Features
 
