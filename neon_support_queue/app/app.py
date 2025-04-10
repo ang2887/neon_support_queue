@@ -1,4 +1,4 @@
-# app.py 
+# app.py 5
 
 import pandas as pd
 import plotly.graph_objs as go
@@ -6,12 +6,17 @@ from dash import Dash, dcc, html
 from dash.dependencies import Input, Output, State
 from plotly.subplots import make_subplots
 from datetime import date
+import os
 from dotenv import load_dotenv
+
+if os.getenv("RENDER"):
+    load_dotenv("/etc/secrets/.env")
+else:
+    load_dotenv()   
+
 from neon_support_queue.db.neon_data_processing import load_and_process
-
-load_dotenv()
 _, _, dft_dash = load_and_process()
-
+ 
 def filter_by_company_size(df, size_category):
     if size_category == 'all':
         return df.copy()
@@ -170,8 +175,15 @@ def update_dashboard(company_size_category, date_range, avg_plot_relayout, total
     date_display = f"Selected Date Range: {start_date} to {end_date}"
 
     return fig_avg_max_wait_time, fig_total_tickets, red_zone_tickets, amber_zone_tickets, green_zone_tickets, date_display
-        
+
+server = app.server
+
+@app.server.route('/health')
+def health_check():
+    return "OK", 200
+
+port=int(os.environ.get("PORT", 10000))
 if __name__ == '__main__':    
-    app.run_server(host='localhost', debug=True)
+    app.run_server(host='0.0.0.0', port=port, debug=False)
 
     
