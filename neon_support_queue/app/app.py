@@ -1,4 +1,4 @@
-# app.py 5
+# app.py 7
 
 import pandas as pd
 import plotly.graph_objs as go
@@ -181,6 +181,24 @@ server = app.server
 @app.server.route('/healthz')
 def health_check():
     return "OK", 200
+
+from flask import jsonify
+
+@app.server.route('/api/avg-wait-times', methods=['GET'])
+def get_avg_wait_times():
+    try:
+        dash_data = dft_dash.copy()  
+        dash_data['created_at'] = pd.to_datetime(dash_data['created_at'])  
+        dash_data.set_index('created_at', inplace=True)  
+
+        # Resampling by day ('D') → calculate daily average wait time
+        daily_avg = dash_data.resample('D').wait_time_minutes.mean().dropna().round(2)
+
+        result = daily_avg.reset_index().to_dict(orient='records')  # converting to list-of-dicts
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 port=int(os.environ.get("PORT", 10000))
 if __name__ == '__main__':    

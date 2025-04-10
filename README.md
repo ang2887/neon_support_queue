@@ -17,6 +17,11 @@ It is intended as a prototype for exploring operational bottlenecks and visual m
 
 ![Dashboard Screenshot](assets/customer_wait_times_dashboard.png)
 
+## Live Demo
+
+Test the app live in your browser: 
+[View on Render](https://neon-support-dashboard.onrender.com)
+
 ## ERD (Entity Relationship Diagram)
 
 ![ERD](diagrams/schema_erd.png)
@@ -124,6 +129,24 @@ The Dash app is served using Gunicorn, a production-grade WSGI server.
 5.Set Health Check Path to /healthz
 6.Done!
 
+
+## API Endpoint
+
+The dashboard includes a simple public API for external integrations or custom visualisations.
+
+- **URL (local)**:  
+  `http://localhost:10000/api/avg-wait-times`
+
+- **Returns**:  
+  JSON array of daily average wait times (based on processed ticket data)
+
+- **Example**:
+
+```json
+[
+  { "created_at": "2024-08-20", "wait_time_minutes": 12.5 },
+  { "created_at": "2024-08-21", "wait_time_minutes": 8.4 }
+]
 
 ## Optional Monitoring
 
