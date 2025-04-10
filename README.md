@@ -147,6 +147,7 @@ The dashboard includes a simple public API for external integrations or custom v
   { "created_at": "2024-08-20", "wait_time_minutes": 12.5 },
   { "created_at": "2024-08-21", "wait_time_minutes": 8.4 }
 ]
+```
 
 ## Optional Monitoring
 
