@@ -1,12 +1,17 @@
 # Neon Support Queue Dashboard
 
-A lightweight dashboard to visualize customer support wait times and monitor Neon PostgreSQL usage in real time.
+A lightweight yet powerful dashboard to visualise customer support wait times, ticket volume trends, and monitor Neon PostgreSQL usage. Built with Python, Plotly Dash, and deployed via Render.
 
 ## Overview
 
-This tool helps B2B SaaS teams explore how long customers are waiting for support, identify bottlenecks in response times, and trigger alerts when usage exceeds predefined thresholds.
+This dashboard visualizes synthetic support ticket data to explore customer wait times and Neon database usage.  
+It helps simulate what support teams might face in a real-world B2B SaaS environment.
 
-It supports filtering by company size and includes alerting logic for wait time zones (green/amber/red).
+Built with Plotly Dash, the app supports filtering by company size, date range, and includes threshold alerts based on database usage. It also visualises total ticket counts per day to help spot high-demand periods.
+
+It is intended as a prototype for exploring operational bottlenecks and visual monitoring approaches.
+
+**Note:** This version uses synthetic data. For real-time deployment, data ingestion from a live support system (e.g. Zendesk, Intercom) can be added, with periodic refreshing.
 
 ## Dashboard Preview
 
@@ -18,11 +23,13 @@ It supports filtering by company size and includes alerting logic for wait time 
 
 ## Features
 
-- Interactive dashboard built with Dash + Plotly
-- Filter by company size and date range
-- Email alerts when DB usage exceeds thresholds
-- Clear visual distinction between long wait time zones
-- Modular project structure with data ingestion + monitoring scripts
+- Interactive dashboard (Dash + Plotly)
+- Color-coded zones for visual monitoring of wait time thresholds
+- Filter by company size and date
+- Visualises daily support ticket volume to identify usage spikes
+- Background monitoring for Neon DB usage
+- Email alerts triggered when Neon DB usage exceeds thresholds (via SendGrid)
+- Modular project structure with data ingestion, monitoring, and logging scripts
 
 ## Project Structure
 
@@ -56,42 +63,73 @@ neon_support_queue/
 │   └── usage_warnings.log
 ```
 
-## Setup
-
-1. **Clone the repo** and navigate into it:
-
-   ```bash
-   git clone https://github.com/your-username/neon_support_queue.git
-   cd neon_support_queue
-
-2.	**Install Poetry** (if not already installed):   
-curl -sSL https://install.python-poetry.org | python3 -
-
-3.	**Install dependencies**:
-
-poetry install
-
-4.	**Create a .env file** with the following:
-NEON_DB_URL=your_neon_database_url
-SENDGRID_API_KEY=your_sendgrid_api_key
-FROM_EMAIL=alerts@yourdomain.com
-ALERT_EMAIL=your_email@yourdomain.com
-
-5.	**Run the app**:
-poetry run python neon_support_queue/app/app.py
-
-## Dependencies
+## Tech Stack
 
 - Python 3.11+
 - Dash / Plotly
-- pandas, SQLAlchemy
-- psycopg2-binary, python-dotenv
-- schedule, tenacity, retrying
-- SendGrid (for email alerts)
+- Pandas, SQLAlchemy
+- Gunicorn (for production)
+- Neon (PostgreSQL)
+- SendGrid (email alerts)
+- dotenv (environment config)
 
-All managed via poetry and specified in `pyproject.toml`.
+## Local Development Setup
+
+1. **Clone the repo** and move into it:
+
+```bash
+git clone https://github.com/your-username/neon_support_queue.git
+cd neon_support_queue
+```
+
+2. **Install Poetry** (if needed):
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+3. **Install dependencies**:
+
+```bash
+poetry install
+```
+
+4. **Create a `.env` file** in root with:
+
+```env
+USE_NEON=1
+NEON_DB_URL=your_neon_database_url
+NEON_API_KEY=your_api_key
+NEON_PROJECT_ID=your_project_id
+EMAIL_SENDER=your_email@gmail.com
+EMAIL_PASSWORD=your_password_or_app_key
+EMAIL_RECEIVER=your_email@gmail.com
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+```
+
+5. **Run the app locally**:
+
+```bash
+poetry run python neon_support_queue/app/app.py
+```
+
+## Deployment (Render)
+
+The Dash app is served using Gunicorn, a production-grade WSGI server.
+1.Push your repo to GitHub
+2.Connect it on [Render.com](https://render.com/)
+3.Use gunicorn neon_support_queue.app.app:server as the Start Command
+4.Add your .env as a Secret File
+5.Set Health Check Path to /healthz
+6.Done!
+
+
+## Optional Monitoring
+
+Integrate [UptimeRobot](https://uptimerobot.com/) with `/healthz` to prevent cold starts and ensure uptime.
 
 ## License
 
-This project is licensed under the terms of the MIT License.  
+This project is licensed under the MIT License.  
 See the [LICENSE](LICENSE) file for details.
