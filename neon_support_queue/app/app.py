@@ -178,7 +178,7 @@ def update_dashboard(company_size_category, date_range, avg_plot_relayout, total
 
 server = app.server
 
-@app.server.route('/health')
+@app.server.route('/healthz')
 def health_check():
     return "OK", 200
 
