@@ -15,7 +15,7 @@ It is intended as a prototype for exploring operational bottlenecks and visual m
 
 ## Dashboard Preview
 
-![Dashboard Screenshot](assets/customer_wait_times_dashboard.png)
+![Dashboard Screenshot](neon_support_queue/app/assets/customer_wait_times_dashboard.png)
 
 ## Live Demo
 
@@ -40,32 +40,36 @@ Test the app live in your browser:
 
 ```text
 neon_support_queue/
-├── app/                    # Dash app layout + callbacks
-│   └── app.py
-├── db/                     # Data ingestion, DB connection, and processing
-│   ├── create_tables.sql
-│   ├── data_generator.py
-│   ├── neon_data_processing.py
-│   ├── neon_post_data.py
-│   ├── neon_post_data_test.py
-│   └── neon_test_connection.py
-├── monitor/                # Monitoring utilities (log rotation, usage checks)
-│   ├── log_config.py
-│   ├── neon_kill_switch.py
-│   ├── neon_monitor.py
-│   └── test_log_rotation.py
-├── utils/                  # Email and env utilities
-│   ├── neon_utils.py
-│   ├── neon_utils.log
-│   └── test_read_env.py
-├── assets/                 # Dashboard visuals
-│   └── customer_wait_times_dashboard.png
-├── diagrams/               # ERD and additional diagrams
+├── diagrams/                       # ERD and diagrams
 │   └── schema_erd.png
-├── data_files/             # Sample input dataset
-│   └── support_queue.csv
-├── logs/                   # App/runtime logs
+├── LICENSE
+├── logs/                           # App/runtime logs
 │   └── usage_warnings.log
+├── neon_support_queue/
+│   ├── __init__.py
+│   ├── app/                        # Dash app layout + callbacks
+│   │   ├── app.py
+│   │   └── assets/
+│   │       ├── customer_wait_times_dashboard.png
+│   │       └── favicon.ico
+│   ├── data_files/                # Sample input dataset
+│   │   └── support_queue.csv
+│   ├── db/                        # Data ingestion, DB connection, processing
+│   │   ├── create_tables.sql
+│   │   ├── data_generator.py
+│   │   ├── neon_data_processing.py
+│   │   ├── neon_post_data.py
+│   │   ├── neon_post_data_test.py
+│   │   └── neon_test_connection.py
+│   ├── monitor/                   # Monitoring utilities
+│   │   ├── log_config.py
+│   │   ├── neon_kill_switch.py
+│   │   ├── neon_monitor.py
+│   │   └── test_log_rotation.py
+│   └── utils/                     # Email/env utilities
+│       ├── neon_utils.py
+│       ├── neon_utils.log
+│       └── test_read_env.py
 ```
 
 ## Tech Stack
