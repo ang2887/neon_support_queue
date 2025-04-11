@@ -35,8 +35,7 @@ def filter_by_company_size(df, size_category):
 min_date = dft_dash['created_at'].min().date()
 max_date = dft_dash['created_at'].max().date()
 
-app.layout = html.Div([
-    html.Link(rel='icon', href='/assets/favicon.ico', type='image/x-icon'),
+app.layout = html.Div([    
     html.H1('Customer Support Ticket Wait Time', style={'color': '#0E446E', 'font-family': 'Arial'}), 
 
     html.Div([
