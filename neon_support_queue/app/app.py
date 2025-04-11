@@ -1,4 +1,4 @@
-# app.py 7
+# app.py 8
 
 import pandas as pd
 import plotly.graph_objs as go
@@ -16,6 +16,13 @@ else:
 
 from neon_support_queue.db.neon_data_processing import load_and_process
 _, _, dft_dash = load_and_process()
+
+app = Dash(
+    __name__,
+    assets_folder='assets',
+    title='NSQ Dashboard',
+    update_title=None
+)
  
 def filter_by_company_size(df, size_category):
     if size_category == 'all':
@@ -23,12 +30,13 @@ def filter_by_company_size(df, size_category):
     else:
         return df[df['company_size_category'] == size_category].copy()
 
-app = Dash(__name__)
+#app = Dash(__name__)
 
 min_date = dft_dash['created_at'].min().date()
 max_date = dft_dash['created_at'].max().date()
 
 app.layout = html.Div([
+    html.Link(rel='icon', href='/assets/favicon.ico', type='image/x-icon'),
     html.H1('Customer Support Ticket Wait Time', style={'color': '#0E446E', 'font-family': 'Arial'}), 
 
     html.Div([
